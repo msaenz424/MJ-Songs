@@ -13,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.mig.mjsongs.DetailsHandler;
 import com.android.mig.mjsongs.R;
 import com.android.mig.mjsongs.SongHandler;
+import com.android.mig.mjsongs.activities.DetailsActivity;
 import com.android.mig.mjsongs.models.Song;
 import com.android.mig.mjsongs.adapters.SongsAdapter;
 
@@ -27,7 +29,7 @@ import static com.android.mig.mjsongs.utils.OpenSongsJsonUtils.getResponseFromHt
 import static com.android.mig.mjsongs.utils.OpenSongsJsonUtils.getSongArrayFromJson;
 
 public class SongListFragment extends Fragment
-        implements LoaderManager.LoaderCallbacks<ArrayList<Song>>, SongHandler{
+        implements LoaderManager.LoaderCallbacks<ArrayList<Song>>, SongHandler, DetailsHandler{
 
     private static final int LOADER_ID = 100;
     private final String MJ_URL = "https://itunes.apple.com/search?term=Michael+jackson";
@@ -53,7 +55,7 @@ public class SongListFragment extends Fragment
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
         mSongsRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mSongsAdapter = new SongsAdapter(this);
+        mSongsAdapter = new SongsAdapter(this, this);
         mSongsRecyclerView.setAdapter(mSongsAdapter);
 
         getLoaderManager().initLoader(LOADER_ID, null, this);
@@ -112,5 +114,12 @@ public class SongListFragment extends Fragment
         bundle.putString(Intent.ACTION_MEDIA_SHARED, songUrl);
         videoViewFragment.setArguments(bundle);
         getFragmentManager().beginTransaction().replace(R.id.song_player_container,videoViewFragment).commit();
+    }
+
+    @Override
+    public void onClick(Song song) {
+        Intent intent = new Intent(getActivity(), DetailsActivity.class);
+        intent.putExtra(Intent.EXTRA_TEXT, song);
+        startActivity(intent);
     }
 }

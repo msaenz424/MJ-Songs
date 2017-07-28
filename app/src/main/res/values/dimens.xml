@@ -3,6 +3,15 @@
     <dimen name="cardview_elevation">8dp</dimen>
     <dimen name="cardview_translation_z">2dp</dimen>
     <dimen name="standard_list_item_padding">16dp</dimen>
+    <dimen name="list_item_vertical_padding">8dp</dimen>
 
     <dimen name="song_name_text_size">16sp</dimen>
+
+    <dimen name="horizontal_padding">16dp</dimen>
+    <dimen name="vertical_padding">16dp</dimen>
+    <dimen name="card_view_details_radius">8dp</dimen>
+    <dimen name="det_track_name_text_size">34sp</dimen>
+    <dimen name="det_track_price_text_size">24sp</dimen>
+    <dimen name="det_other_info_text_size">20sp</dimen>
+    <dimen name="left_margin_genre_text">8dp</dimen>
 </resources>

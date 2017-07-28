@@ -1,10 +1,8 @@
-package com.android.mig.mjsongs;
+package com.android.mig.mjsongs.utils;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.widget.ImageView;
-
-import com.android.mig.mjsongs.utils.OpenSongsJsonUtils;
 
 import java.lang.ref.WeakReference;
 
