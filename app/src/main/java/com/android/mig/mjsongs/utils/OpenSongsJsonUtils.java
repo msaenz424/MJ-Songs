@@ -1,5 +1,7 @@
 package com.android.mig.mjsongs.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.android.mig.mjsongs.models.Song;
@@ -11,6 +13,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -57,7 +60,7 @@ public class OpenSongsJsonUtils {
         final String M_COLLECTION_NAME = "collectionName";
         final String M_TRACK_NAME = "trackName";
         final String M_PREVIEW_URL = "previewUrl";
-        final String M_ARTWORK_URL = "artworkUrl60";
+        final String M_ARTWORK_URL = "artworkUrl100";
         final String M_TRACK_PRICE = "trackPrice";
         final String M_RELEASE_DATE = "releaseDate";
         final String M_PRIMARY_GENRE_NAME = "primaryGenreName";
@@ -99,5 +102,37 @@ public class OpenSongsJsonUtils {
             e.printStackTrace();
         }
         return mSongArrayList;
+    }
+
+    /** Retrieves the image as bitmap from url provided
+     *
+     *  @param imageUri the url from the image
+     *  @return a bitmap of the image
+     */
+    public static Bitmap getBitMapFromUrl(String imageUri){
+        HttpURLConnection connection = null;
+
+        try {
+            URL url = new URL(imageUri);
+            connection= (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream is = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+
+            return bitmap;
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            if(connection!=null) {
+                connection.disconnect();
+            }
+        }
     }
 }

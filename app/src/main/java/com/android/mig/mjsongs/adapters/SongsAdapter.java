@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.mig.mjsongs.FetchImageTask;
 import com.android.mig.mjsongs.SongHandler;
 import com.android.mig.mjsongs.R;
 import com.android.mig.mjsongs.models.Song;
@@ -40,7 +41,9 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsAdapter
 
     @Override
     public void onBindViewHolder(SongsAdapterViewHolder holder, int position) {
-        //holder.mImageViewArtwork.setImageBitmap();
+        String artworkUrl = mSongsArrayList.get(position).getArtworkUrl();
+        FetchImageTask fetchImageTask = new FetchImageTask(holder.mImageViewArtwork);
+        fetchImageTask.execute(artworkUrl);
         holder.mTextViewSongName.setText(mSongsArrayList.get(position).getTrackName());
     }
 
