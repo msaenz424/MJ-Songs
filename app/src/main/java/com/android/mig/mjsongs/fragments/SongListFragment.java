@@ -1,6 +1,5 @@
 package com.android.mig.mjsongs.fragments;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import com.android.mig.mjsongs.DetailsHandler;
 import com.android.mig.mjsongs.R;
 import com.android.mig.mjsongs.SongHandler;
 import com.android.mig.mjsongs.activities.DetailsActivity;
-import com.android.mig.mjsongs.activities.MainActivity;
 import com.android.mig.mjsongs.models.Song;
 import com.android.mig.mjsongs.adapters.SongsAdapter;
 
@@ -39,10 +37,9 @@ public class SongListFragment extends Fragment
     private final String MJ_URL = "https://itunes.apple.com/search?term=Michael+jackson";
     private URL songs_URL = null;
 
-    SongsAdapter mSongsAdapter;
+    private SongsAdapter mSongsAdapter;
 
     View rootView;
-    ImageView mArtworkImageView;
 
     public SongListFragment() {
         try {
@@ -56,7 +53,6 @@ public class SongListFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_song_list, container, false);
-        mArtworkImageView = (ImageView) rootView.findViewById(R.id.artwork_image_view);
         RecyclerView mSongsRecyclerView = (RecyclerView) rootView.findViewById(R.id.songs_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
         mSongsRecyclerView.setLayoutManager(linearLayoutManager);

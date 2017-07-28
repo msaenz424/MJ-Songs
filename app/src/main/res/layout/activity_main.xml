@@ -9,12 +9,12 @@
         android:id="@+id/song_player_container"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#000000"/>
+        android:background="#000000" />
 
     <fragment
         android:id="@+id/song_list"
         android:name="com.android.mig.mjsongs.fragments.SongListFragment"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
