@@ -4,4 +4,5 @@
     <string name="label_release_date">Release date:\u0020</string>
     <string name="label_genre">Genre:\u0020</string>
     <string name="label_collection_name">Collection:\u0020</string>
+    <string name="transition_image_name">transition_image_name</string>
 </resources>

@@ -83,7 +83,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsAdapter
                     mSongHandler.onClick(songUrl);
                     break;
                 default:
-                    mDetailsHandler.onClick(song);
+                    mDetailsHandler.onClick(song, mImageViewArtwork);
                     break;
             }
         }

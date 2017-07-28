@@ -22,6 +22,7 @@ public class VideoViewFragment extends Fragment{
     VideoView mVideoView;
     MediaController mMediaController;
     View rootView;
+    String songUrl;
 
     public VideoViewFragment(){
     }
@@ -36,17 +37,25 @@ public class VideoViewFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_song_player, container, false);
 
-        String songUrl = getArguments().getString(Intent.ACTION_MEDIA_SHARED);
+        songUrl = getArguments().getString(Intent.ACTION_MEDIA_SHARED);
 
         mVideoView = (VideoView) rootView.findViewById(R.id.song_video_view);
 
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         try {
-            mMediaController = new MediaController(getContext()){
-                @Override
-                public void hide() {
-                    // prevents media controller from hiding
-                }
-            };
+            if (mMediaController == null){
+                mMediaController = new MediaController(getContext()){
+                    @Override
+                    public void hide() {
+                        // prevents media controller from hiding
+                    }
+                };
+            }
             mMediaController.setAnchorView(mVideoView);
             Uri mediaUri = Uri.parse(songUrl);
 
@@ -64,13 +73,13 @@ public class VideoViewFragment extends Fragment{
                 mMediaController.show();
             }
         });
-        return rootView;
+
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onStop() {
         mVideoView.stopPlayback();
-        mMediaController.show();
+        mVideoView.seekTo(0);
+        super.onStop();
     }
 }

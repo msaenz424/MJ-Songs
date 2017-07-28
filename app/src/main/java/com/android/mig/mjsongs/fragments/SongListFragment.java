@@ -1,5 +1,7 @@
 package com.android.mig.mjsongs.fragments;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,11 +14,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.android.mig.mjsongs.DetailsHandler;
 import com.android.mig.mjsongs.R;
 import com.android.mig.mjsongs.SongHandler;
 import com.android.mig.mjsongs.activities.DetailsActivity;
+import com.android.mig.mjsongs.activities.MainActivity;
 import com.android.mig.mjsongs.models.Song;
 import com.android.mig.mjsongs.adapters.SongsAdapter;
 
@@ -38,6 +42,7 @@ public class SongListFragment extends Fragment
     SongsAdapter mSongsAdapter;
 
     View rootView;
+    ImageView mArtworkImageView;
 
     public SongListFragment() {
         try {
@@ -51,6 +56,7 @@ public class SongListFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_song_list, container, false);
+        mArtworkImageView = (ImageView) rootView.findViewById(R.id.artwork_image_view);
         RecyclerView mSongsRecyclerView = (RecyclerView) rootView.findViewById(R.id.songs_recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
         mSongsRecyclerView.setLayoutManager(linearLayoutManager);
@@ -117,9 +123,16 @@ public class SongListFragment extends Fragment
     }
 
     @Override
-    public void onClick(Song song) {
+    public void onClick(Song song, ImageView imageView) {
+        Bundle bundle = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            // takes care of the shared element transition
+             bundle = ActivityOptions
+                    .makeSceneTransitionAnimation(getActivity(), imageView, imageView.getTransitionName())
+                    .toBundle();
+        }
         Intent intent = new Intent(getActivity(), DetailsActivity.class);
         intent.putExtra(Intent.EXTRA_TEXT, song);
-        startActivity(intent);
+        startActivity(intent, bundle);
     }
 }

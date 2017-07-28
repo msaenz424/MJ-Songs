@@ -19,7 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:transitionName="@string/transition_image_name"/>
 
         <TextView
             android:id="@+id/song_text_view"
